@@ -1,6 +1,7 @@
 <?php
 
-namespace ExternalRequests\Trcak;
+namespace SnappMarket\PhpGuzzleLogger;
+
 
 class Wrapper
 {

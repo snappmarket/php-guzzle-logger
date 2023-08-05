@@ -1,17 +1,18 @@
 <?php
 
-namespace ExternalRequests\Trcak;
+namespace SnappMarket\PhpGuzzleLogger;
 
-use GuzzleHttp\TransferStats;
 
-class LaravelLogger {
+class LaravelLogger
+{
     private $logger;
 
-    public function __construct($logger) {
+    public function __construct($logger)
+    {
         $this->logger = $logger;
     }
 
-    public function logRecord(string $serviceName,TransferStats $stats): void
+    public function logRecord(string $serviceName, TransferStats $stats): void
     {
         $status_code = 408;
         if ($stats->hasResponse()) {

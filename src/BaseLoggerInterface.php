@@ -1,8 +1,9 @@
 <?php
-namespace ExternalRequests\Trcak;
 
-use GuzzleHttp\TransferStats;
+namespace SnappMarket\PhpGuzzleLogger;
 
-interface BaseLoggerInterface {
-    public function logRecord(string $serviceName,TransferStats $stats);
+
+interface BaseLoggerInterface
+{
+    public function logRecord(string $serviceName, TransferStats $stats);
 }

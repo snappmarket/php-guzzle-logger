@@ -1,17 +1,18 @@
 <?php
 
-namespace ExternalRequests\Trcak;
+namespace SnappMarket\PhpGuzzleLogger;
 
 
-use GuzzleHttp\TransferStats;
-
-class SymfonyLogger implements BaseLoggerInterface  {
+class SymfonyLogger implements BaseLoggerInterface
+{
     private $logger;
 
-    public function __construct($logger) {
+    public function __construct($logger)
+    {
         $this->logger = $logger;
     }
-    public function logRecord(string $serviceName,TransferStats $stats): void
+
+    public function logRecord(string $serviceName, TransferStats $stats): void
     {
         $status_code = 408;
         if ($stats->hasResponse()) {
@@ -24,7 +25,6 @@ class SymfonyLogger implements BaseLoggerInterface  {
             'Third party logger log for: ' . $serviceName . ' service',
             'ERROR',
             [
-                //check has response
                 "response_status_code" => $status_code,
                 "request_duration" => $stats->getTransferTime() * 1000, //ms
                 "response_body" => $response,
