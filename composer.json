@@ -1,8 +1,8 @@
 {
-    "name": "external_requests/trcak",
+    "name": "snappmarket/php-guzzle-logger",
     "autoload": {
         "psr-4": {
-            "ExternalRequests\\Trcak\\": "src/"
+            "SnappMarket\\": "src/"
         }
     },
     "authors": [

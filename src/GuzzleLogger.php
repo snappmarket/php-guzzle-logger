@@ -1,6 +1,6 @@
 <?php
 
-namespace SnappMarket\PhpGuzzleLogger;
+namespace SnappMarket\PHPGuzzleLogger;
 
 class GuzzleLogger
 {
@@ -8,12 +8,12 @@ class GuzzleLogger
 
     public function __construct($loggerType, $logger)
     {
-        $wrapper = new Wrapper();
-        $this->logger = $wrapper->wichLogger($loggerType, $logger);
+        $this->logger = $logger;
     }
 
-    public function handleRequestStats(string $serviceName, $stats)
-    {
+    public function handleRequestStats($service_name, $stats) {
+        $url = $stats->getHandlerStats()["url"];
+        $request_duration = $stats->getTransferTime() * 1000; //ms
         $status_code = 408;
         if ($stats->hasResponse()) {
             $status_code = $stats->getResponse()->getStatusCode();
@@ -21,8 +21,19 @@ class GuzzleLogger
         } else {
             $response = $stats->getHandlerErrorData();
         }
-        $url = $stats->getHandlerStats()["url"];
-        $request_duration = $stats->getTransferTime() * 1000;
-        $this->logger->logRecord($serviceName, $status_code, $request_duration, $response, $url);
+        $this->logRecord($service_name, $status_code, $response, $request_duration, $url);
+    }
+
+    public function logRecord(string $serviceName, $status_code, $response, $request_duration, $url): void
+    {
+        $this->logger->info(
+            'Third party logger log for: ' . $serviceName . ' service',
+            [
+                "response_status_code" => $status_code,
+                "request_duration" => $request_duration, //ms
+                "response_body" => $response,
+                "url" => $url,
+            ]
+        );
     }
 }
