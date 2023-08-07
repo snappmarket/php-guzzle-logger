@@ -12,23 +12,16 @@ class SymfonyLogger implements BaseLoggerInterface
         $this->logger = $logger;
     }
 
-    public function logRecord(string $serviceName, TransferStats $stats): void
+    public function logRecord($serviceName, $status_code, $request_duration, $response, $url): void
     {
-        $status_code = 408;
-        if ($stats->hasResponse()) {
-            $status_code = $stats->getResponse()->getStatusCode();
-            $response = $stats->getResponse()->getBody();
-        } else {
-            $response = $stats->getHandlerErrorData();
-        }
         $this->logger->log(
             'Third party logger log for: ' . $serviceName . ' service',
             'ERROR',
             [
                 "response_status_code" => $status_code,
-                "request_duration" => $stats->getTransferTime() * 1000, //ms
+                "request_duration" => $request_duration,
                 "response_body" => $response,
-                "url" => $stats->getHandlerStats()["url"],
+                "url" => $url,
             ]
         );
     }
