@@ -1,6 +1,6 @@
 <?php
 
-namespace SnappMarket\PHPGuzzleLogger;
+namespace SnappMarket\GuzzleLogger;
 
 class GuzzleLogger
 {
