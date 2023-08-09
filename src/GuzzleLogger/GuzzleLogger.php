@@ -11,7 +11,8 @@ class GuzzleLogger
         $this->logger = $logger;
     }
 
-    public function handleRequestStats($serviceName, $stats) {
+    public function handleRequestStats($serviceName, $stats)
+    {
         $url = $stats->getHandlerStats()["url"];
         $requestDuration = $stats->getTransferTime() * 1000; //ms
         $statusCode = 408;
@@ -27,12 +28,13 @@ class GuzzleLogger
     public function logRecord(string $serviceName, $statusCode, $response, $requestDuration, $url): void
     {
         $this->logger->info(
-            'Third party logger log for: ' . $serviceName . ' service',
+            'Guzzle logger log for: ' . $serviceName . ' service',
             [
                 "response_status_code" => $statusCode,
                 "request_duration" => $requestDuration, //ms
                 "response_body" => $response,
                 "url" => $url,
+                "service_name" => $serviceName,
             ]
         );
     }
