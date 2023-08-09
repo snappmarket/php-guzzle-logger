@@ -6,7 +6,7 @@ class GuzzleLogger
 {
     private $logger;
 
-    public function __construct($loggerType, $logger)
+    public function __construct($logger)
     {
         $this->logger = $logger;
     }
